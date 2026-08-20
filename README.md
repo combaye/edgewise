@@ -9,6 +9,15 @@ Pattern-analog forecasting · Monte Carlo · seasonality · valuation · walk-fo
 
 [Quick start](#quick-start) · [Features](#features) · [Architecture](#architecture) · [Project structure](#project-structure)
 
+<br>
+
+![Pattern projection with forecast cone and significance test](docs/forecast.png)
+
+<sub><i>The forecasting engine on the S&P 500. Solid line: the last 63 sessions. Dotted line: the closest
+historical analog (Oct 2024, r=0.76) rescaled to today's price. Green/red: median bull and bear paths from
+12 matched analogs — and, on the right, the verdict that this particular setup is
+<b>not statistically significant (p=0.935)</b>.</i></sub>
+
 </div>
 
 ---
@@ -66,6 +75,11 @@ browser. Without them those two panels show a short setup note and everything el
 ---
 
 ## Features
+
+![Market mood, composite forecast and mechanical trade plan](docs/overview.png)
+
+<sub><i>Top of the dashboard: a fear/greed gauge aggregated across the watchlist, the weighted composite
+bias, and a mechanical trade plan derived from that bias plus ATR.</i></sub>
 
 ### Forecasting & statistics
 - **Pattern projection** — z-scores the last 63 sessions, slides that window across 10 years of
