@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+/* color tokens mirrored from src/lib/theme.js — keep in sync */
+:root {
+  --c-bg: #0d1117;
+  --c-panel: #141a22;
+  --c-panel2: #10151c;
+  --c-border: #222c39;
+  --c-text: #e9e7e1;
+  --c-muted: #8b96a6;
+  --c-amber: #f2a33c;
+  --c-amber-dim: #8a5f25;
+  --c-bull: #3ddc97;
+  --c-bear: #ff6b6b;
+  --c-grid: #1b2430;
+}
+
+html,
+body {
+  background: var(--c-bg);
+  color: var(--c-text);
+}
+
+@keyframes fct-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.live-pulse {
+  animation: fct-pulse 1.6s ease-in-out infinite;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--c-border);
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+input::placeholder {
+  color: var(--c-muted);
+  opacity: 0.6;
+}

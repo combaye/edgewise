@@ -1,0 +1,33 @@
+# dependencies / build output
+node_modules
+dist
+
+# secrets — never commit these
+.env
+.env.local
+.env.*.local
+*.local
+
+# server-side response cache written at runtime
+.proxy-cache.json
+
+# local editor / tooling config (machine-specific paths)
+.claude
+
+# deploy provider folders
+.netlify
+.vercel
+
+# os noise
+.DS_Store
+Thumbs.db
+
+# ---------------------------------------------------------------------------
+# Sibling projects that live in this folder but are NOT part of this app.
+# They are separate pieces of work and are published (if at all) on their own.
+# ---------------------------------------------------------------------------
+cashflow-game/
+forex-simulator/
+mt4-ea/
+reversal-backtest/
+tradingview-clone/
