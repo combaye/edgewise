@@ -33,7 +33,7 @@ the part I care most about.
 Requires [Node.js](https://nodejs.org) 18 or newer.
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/forecaster-terminal.git
+git clone https://github.com/combaye/forecaster-terminal.git
 cd forecaster-terminal
 npm install
 npm run dev
