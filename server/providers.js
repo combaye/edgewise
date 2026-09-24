@@ -222,8 +222,14 @@ export async function capitolTrades({ perPage = 200, page = 1 } = {}) {
 // ---------------- Twelve Data (primary fundamentals; price/history fallback) ----------------
 export async function twelveData(path, params, key) {
   if (!key) throw new Error("no Twelve Data key configured");
-  const qs = new URLSearchParams({ ...params, apikey: key }).toString();
-  const data = await getJSON(`${TD_BASE}${path}?${qs}`);
+  // Defense in depth: the router allow-lists paths, but this is the line that
+  // attaches the key, so it independently refuses anything that isn't a plain
+  // "/segment" and verifies the final host before any request leaves.
+  if (!/^\/[a-z_]+$/.test(path)) throw new Error("invalid Twelve Data path");
+  const url = new URL(`${TD_BASE}${path}`);
+  if (url.hostname !== "api.twelvedata.com") throw new Error("refusing non-Twelve-Data host");
+  url.search = new URLSearchParams({ ...params, apikey: key }).toString();
+  const data = await getJSON(url.toString());
   if (data && data.status === "error") {
     const err = new Error(data.message || `Twelve Data error ${data.code}`);
     err.code = Number(data.code);

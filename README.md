@@ -132,7 +132,7 @@ bias, and a mechanical trade plan derived from that bias plus ATR.</i></sub>
 
 ## Architecture
 
-The interesting engineering is in three places.
+The interesting engineering is in four places.
 
 ### 1. A resilient multi-provider data proxy
 
@@ -170,6 +170,35 @@ Every panel is wrapped in its own error boundary, so one failing analytic render
 card with a retry instead of blanking the terminal. Network failures, rate limits, and insufficient
 history each degrade to a specific, readable message per panel rather than a spinner that never ends.
 
+### 4. Hardened public endpoints
+
+Both server endpoints are reachable by anyone once deployed, so everything they receive is treated
+as hostile.
+
+- **`/api/td` — no key exfiltration.** The requested path is checked against an allow-list of the
+  eight endpoints the app actually uses, and symbols must match a strict pattern. Independently, the
+  one function that attaches the API key refuses any path that isn't a plain `/segment` and verifies
+  the final hostname before a request leaves. Without this, a crafted path such as
+  `@attacker.example/x` would turn `https://api.twelvedata.com` + path into a request to the
+  attacker's host, carrying the key.
+- **`/api/ai` — not a free LLM proxy.** Requests are limited to the app's three modes; the payload is
+  rebuilt field by field with caps on depth, array length and string length, so a long free-form
+  prompt can't be smuggled through; bodies are byte-capped; and calls are rate-limited per client
+  and per instance. Upstream error text is never echoed back to the caller.
+- **Tested adversarially.** `server/__tests__/security.test.js` fires real attack payloads at both
+  handlers with the network stubbed, and asserts the key is never sent to a foreign host. The suite
+  was confirmed to fail against the original, unpatched code.
+
+---
+
+## Tests
+
+```bash
+npm test
+```
+
+Runs the Vitest suite (currently the security regression tests for the public endpoints).
+
 ---
 
 ## Project structure
@@ -206,6 +235,12 @@ in the project environment — both optional.
 npm run build     # production build
 npm run preview   # serve the build locally
 ```
+
+> **If you set `ANTHROPIC_API_KEY` on a public deployment, also set a monthly spend limit in the
+> Anthropic console.** The built-in rate limits live in each serverless instance's memory, so they
+> reset on cold starts and aren't shared across instances — they stop casual abuse, while the
+> console limit is the hard backstop. For a strict global limit, back the limiter with a shared
+> store such as Upstash Redis.
 
 ---
 
