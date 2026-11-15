@@ -43,7 +43,7 @@ export function parseEarnings(resp, today = new Date().toISOString().slice(0, 10
   };
 }
 
-// forecaster.biz "Breakeven": a stock turning profitable after >= 5 consecutive
+// "Breakeven" signal: a stock turning profitable after >= 5 consecutive
 // loss quarters. Returns the signal plus the run length when the latest
 // reported quarter is positive following such a streak.
 export function detectBreakeven(reported, minRun = 5) {

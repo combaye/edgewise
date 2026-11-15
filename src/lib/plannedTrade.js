@@ -31,7 +31,7 @@ export function buildPlannedTrade({ sym, plan, units, signals }) {
     plannedTarget: plan.target,
     entryDate: new Date().toISOString(),
     exitDate: "",
-    setup: "forecaster-signal",
+    setup: "edgewise-signal",
     followedPlan: true,
     emotion: "calm",
     rulesBroken: [],

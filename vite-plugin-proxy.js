@@ -34,7 +34,7 @@ const sendJson = (res, status, obj, headers = {}) => {
 
 export function apiProxy(env) {
   return {
-    name: "forecaster-api-proxy",
+    name: "edgewise-api-proxy",
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
         if (!req.url) return next();

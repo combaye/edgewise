@@ -1,6 +1,6 @@
 <div align="center">
 
-# FORECASTER//TERMINAL
+# EDGEWISE
 
 **A quantitative markets terminal that tells you when its own forecast is just noise.**
 
@@ -24,7 +24,7 @@ historical analog (Oct 2024, r=0.76) rescaled to today's price. Green/red: media
 
 ## What this is
 
-A single-page trading terminal, inspired by the layout and feature set of forecaster.biz, rebuilt
+A single-page quantitative trading terminal, built
 from scratch as an exercise in **quantitative analytics and resilient data engineering**.
 
 Every number on screen is computed locally from real market data — there are no mocked panels.
@@ -42,8 +42,8 @@ the part I care most about.
 Requires [Node.js](https://nodejs.org) 18 or newer.
 
 ```bash
-git clone https://github.com/combaye/forecaster-terminal.git
-cd forecaster-terminal
+git clone https://github.com/combaye/edgewise.git
+cd edgewise
 npm install
 npm run dev
 ```
@@ -213,7 +213,7 @@ server/            provider adapters, routing/fallback, shared cache, AI handler
 api/               serverless entry points for production deployment
 ```
 
-Roughly **8,800 lines** of JavaScript across 93 files.
+Roughly **9,200 lines** of JavaScript across 95 files.
 
 ---
 

@@ -75,7 +75,7 @@ export default function TopBar({ symbols, sym, setSym, onAdd, onExport, view = "
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", marginBottom: 14 }}>
       <div style={{ fontFamily: mono, fontWeight: 700, fontSize: 15, letterSpacing: "0.18em", color: C.amber }}>
-        FORECASTER<span style={{ color: C.muted }}>//TERMINAL</span>
+        EDGE<span style={{ color: C.muted }}>WISE</span>
       </div>
       {setView && <ViewToggle view={view} setView={setView} />}
       {!hideMarketUi && (

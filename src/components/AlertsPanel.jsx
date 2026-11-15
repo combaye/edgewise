@@ -39,7 +39,7 @@ export default function AlertsPanel({ sym }) {
       if (notifiedRef.current.has(a.id)) continue;
       notifiedRef.current.add(a.id);
       if (typeof Notification !== "undefined" && Notification.permission === "granted") {
-        new Notification(`FORECASTER//TERMINAL — ${a.sym}`, {
+        new Notification(`EDGEWISE — ${a.sym}`, {
           body: `crossed ${a.dir} ${fmt(a.level, a.sym)} (now ${fmt(priceOf(a.sym), a.sym)})`,
         });
       }

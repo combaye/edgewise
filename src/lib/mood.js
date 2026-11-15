@@ -2,7 +2,7 @@
 //
 // Aggregates several breadth/momentum/volatility sub-signals across a set of
 // assets (the watchlist) into a single 0–100 score where 0 = Panic Selling and
-// 100 = FOMO / Extreme Greed — mirroring forecaster.biz's Market Mood meter.
+// 100 = FOMO / Extreme Greed — a fear/greed style market-mood meter.
 // Reuses already-cached daily history, so it costs no extra API calls.
 
 import { smaLast, rsiLast } from "./technicals.js";

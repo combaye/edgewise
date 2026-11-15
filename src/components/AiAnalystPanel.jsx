@@ -90,7 +90,7 @@ export default function AiAnalystPanel({ snapshot, sym }) {
         </div>
       ) : status === "idle" && !text ? (
         <div style={{ fontFamily: mono, fontSize: 11.5, color: C.muted, lineHeight: 1.7 }}>
-          Claude (Opus 4.8) reads the full dashboard — pattern forecast, seasonality, technicals, volatility regime,
+          Claude (Opus 5.5) reads the full dashboard — pattern forecast, seasonality, technicals, volatility regime,
           valuation, trade plan — and writes a concise analyst brief. Press{" "}
           <span style={{ color: C.amber }}>GENERATE BRIEF</span>, or ask a question below.
         </div>

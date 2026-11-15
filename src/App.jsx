@@ -139,7 +139,7 @@ export default function App() {
     try {
       const dataUrl = await toPng(rootRef.current, { backgroundColor: "#0D1117", pixelRatio: 1.5, cacheBust: true });
       const a = document.createElement("a");
-      a.download = `forecaster-${sym}-${new Date().toISOString().slice(0, 10)}.png`;
+      a.download = `edgewise-${sym}-${new Date().toISOString().slice(0, 10)}.png`;
       a.href = dataUrl;
       a.click();
     } catch (e) {

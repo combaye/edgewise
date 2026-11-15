@@ -115,7 +115,7 @@ export default function CoachPanel({ stats, insights }) {
         </div>
       ) : !ready ? (
         <div style={{ fontFamily: mono, fontSize: 11.5, color: C.muted, lineHeight: 1.7 }}>
-          Log at least 3 closed trades and the coach (Claude Opus 4.8) will read your full performance and behavioral
+          Log at least 3 closed trades and the coach (Claude Opus 5.5) will read your full performance and behavioral
           profile — win rate, expectancy, discipline, your detected leaks — and write a concrete plan: what's working,
           what's costing you, and the specific changes to make next.
         </div>
